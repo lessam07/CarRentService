@@ -17,4 +17,9 @@ public class UserBook {
     public UserBook(List<Order> userBooks) {
         this.userBooks = userBooks;
     }
+
+
+    public Order[] getUserBooks() {
+        return getUserBooks();
+    }
 }

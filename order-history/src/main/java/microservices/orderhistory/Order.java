@@ -58,4 +58,12 @@ public class Order {
     public int getId() {
         return id;
     }
+
+    public String getFullname() {
+        return getFullname();
+    }
+
+    public Date getCreated_at() {
+       return getCreated_at();
+    }
 }

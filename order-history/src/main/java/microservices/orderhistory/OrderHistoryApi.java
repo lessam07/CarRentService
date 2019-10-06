@@ -16,8 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/catalog")
 public class OrderHistoryApi {
-    @Autowired
-    RestTemplate restTemplate;
+    RestTemplate restTemplate = new RestTemplate();
     @GetMapping("/{userId}")
     public List<OrderHistory> getAllBooks(
             @PathVariable int userId) {
@@ -26,7 +25,7 @@ public class OrderHistoryApi {
 
         // get all order by userId
         UserBook  userBook = restTemplate.getForObject(
-                "http://car-details-service/bookings/" + userId,
+                "http://localhost:8081/bookings/" + userId,
                 UserBook.class);
 
         // get fullname & created date for each order in a list
@@ -35,7 +34,7 @@ public class OrderHistoryApi {
 
         for (Order book : userBook.getUserBooks()) {
             User bookRating = restTemplate.getForObject(
-                    "http://user-details-service/user/" + book.getId(),
+                    "http://localhost:8084/user/" + book.getId(),
                     User.class);
 
             bookCatalogList.add(new OrderHistory(book.getFullname(),
