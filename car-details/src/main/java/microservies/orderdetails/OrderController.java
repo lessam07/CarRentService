@@ -2,6 +2,8 @@ package microservies.orderdetails;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -23,6 +26,7 @@ public class OrderController {
     public OrderController(InfoRepository infoRepo) {
         this.infoRepo = infoRepo;
     }
+
     @GetMapping("/bookings")
     public Iterable<Order> getAllBookings() {
 
