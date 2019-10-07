@@ -24,35 +24,35 @@ public class Order {
     public Order() {
     }
 
-    public Order(Date created_at, @NotBlank(message = "Location is required") String location, @Pattern(regexp = "^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
-            message = "Must be formatted MM/YY") String pickup_date, @Pattern(regexp = "^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
-            message = "Must be formatted MM/YY") String return_date, @NotBlank(message = "Car Type is required") String car_type, int user_id) {
-        this.created_at = created_at;
+    public Order(Date createdAt, @NotBlank(message = "Location is required") String location, @Pattern(regexp = "^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
+            message = "Must be formatted MM/YY") String pickupDate, @Pattern(regexp = "^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
+            message = "Must be formatted MM/YY") String returnDate, @NotBlank(message = "Car Type is required") String carType, int userId) {
+        this.createdAt = createdAt;
         this.location = location;
-        this.pickup_date = pickup_date;
-        this.return_date = return_date;
-        this.car_type = car_type;
-        this.user_id = user_id;
+        this.pickupDate = pickupDate;
+        this.returnDate = returnDate;
+        this.carType = carType;
+        this.userId = userId;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private Date created_at;
+    private Date createdAt;
     @NotBlank(message="Location is required")
     private String location;
     @Pattern(regexp="^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
             message="Must be formatted MM/YY")
-    private String pickup_date;
+    private String pickupDate;
     @Pattern(regexp="^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
             message="Must be formatted MM/YY")
-    private String return_date;
+    private String returnDate;
     @NotBlank(message="Car Type is required")
-    protected String car_type;
-    private int user_id;
+    protected String carType;
+    private int userId;
     @PrePersist
     void createdAt() {
-        this.created_at = new Date();
+        this.createdAt = new Date();
     }
 
     public void setId(int id) {
