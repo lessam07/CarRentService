@@ -29,7 +29,7 @@ public class User implements Serializable {
 
     private String role;
 
-    private String phone_number;
+    private String phoneNumber;
 
 
     public User(String username, String password, String fullname, String role, String phone_number) {
@@ -37,9 +37,13 @@ public class User implements Serializable {
         this.password = password;
         this.fullname = fullname;
         this.role = role;
-        this.phone_number = phone_number;
+        this.phoneNumber = phoneNumber;
     }
 
     public User() {
+    }
+
+    public String getFullname() {
+        return fullname;
     }
 }

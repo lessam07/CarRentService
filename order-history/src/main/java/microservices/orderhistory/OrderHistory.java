@@ -14,10 +14,10 @@ public class OrderHistory {
 
     public OrderHistory(String fullname, Date created_at) {
         this.fullname = fullname;
-        this.created_at = created_at;
+        this.createdAt = createdAt;
     }
 
     private String fullname;
-    private Date created_at;
+    private Date createdAt;
 
 }

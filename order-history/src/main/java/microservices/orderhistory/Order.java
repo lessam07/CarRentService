@@ -1,15 +1,22 @@
-package microservices.orderhistory;
-
-import lombok.Data;
+package microservies.orderdetails;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotBlank;
-
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.jdbc.core.JdbcTemplate;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import static javax.persistence.GenerationType.AUTO;
+import static javax.persistence.GenerationType.*;
 
 @Data
 @Entity
@@ -20,35 +27,35 @@ public class Order {
     public Order() {
     }
 
-    public Order(Date created_at, @NotBlank(message = "Location is required") String location, @Pattern(regexp = "^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
-            message = "Must be formatted MM/YY") String pickup_date, @Pattern(regexp = "^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
-            message = "Must be formatted MM/YY") String return_date, @NotBlank(message = "Car Type is required") String car_type, int user_id) {
-        this.created_at = created_at;
+    public Order(Date createdAt, @NotBlank(message = "Location is required") String location, @Pattern(regexp = "^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
+            message = "Must be formatted MM/YY") String pickupDate, @Pattern(regexp = "^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
+            message = "Must be formatted MM/YY") String returnDate, @NotBlank(message = "Car Type is required") String carType, int userId) {
+        this.createdAt = createdAt;
         this.location = location;
-        this.pickup_date = pickup_date;
-        this.return_date = return_date;
-        this.car_type = car_type;
-        this.user_id = user_id;
+        this.pickupDate = pickupDate;
+        this.returnDate = returnDate;
+        this.carType = carType;
+        this.userId = userId;
     }
 
     @Id
     @GeneratedValue(strategy = AUTO)
     private int id;
-    private Date created_at;
+    private Date createdAt;
     @NotBlank(message="Location is required")
     private String location;
     @Pattern(regexp="^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
             message="Must be formatted MM/YY")
-    private String pickup_date;
+    private String pickupDate;
     @Pattern(regexp="^(0[0-9]|1[0-9])([\\/])([0-9][0-9])$",
             message="Must be formatted MM/YY")
-    private String return_date;
+    private String returnDate;
     @NotBlank(message="Car Type is required")
-    protected String car_type;
-    private int user_id;
+    protected String carType;
+    private int userId;
     @PrePersist
     void createdAt() {
-        this.created_at = new Date();
+        this.createdAt = new Date();
     }
 
     public void setId(int id) {
@@ -57,13 +64,5 @@ public class Order {
 
     public int getId() {
         return id;
-    }
-
-    public String getFullname() {
-        return getFullname();
-    }
-
-    public Date getCreated_at() {
-       return getCreated_at();
     }
 }
