@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.*;
+
 @Slf4j
 @RestController
 
@@ -33,6 +35,17 @@ public class PaymentController {
 
         return infoRepo.findById(id);
     }
+
+    @PostMapping("/addPayment")
+    public ResponseEntity<?> addPayment(@RequestBody @Valid Payment payment) {
+
+        infoRepo.save(payment);
+
+        return new ResponseEntity<>(OK);
+
+    }
+
+
 
 
 }
