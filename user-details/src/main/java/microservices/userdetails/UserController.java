@@ -28,8 +28,15 @@ public class UserController {
     @GetMapping("/user/{userID}")
     public Optional<User> getAllUsers(@PathVariable("userID") int id) {
 
-        return userRepo.findById((long) id);
+        return userRepo.findById(id);
     }
+
+    @GetMapping("/users/{username}")
+    public User getByUsername(@PathVariable("username") String username) {
+
+        return userRepo.findByUsername(username);
+    }
+
     @GetMapping("/usersList")
     public Iterable<User> getUsersList() {
 
@@ -46,7 +53,7 @@ public class UserController {
     }
 
     @GetMapping(value = {"/edit", "/edit/{id}"})
-    public ResponseEntity<?> orderEditForm(@PathVariable (required = false, name = "id") long id) {
+    public ResponseEntity<?> orderEditForm(@PathVariable (required = false, name = "id") int id) {
         Optional<User> optionalOrder = userRepo.findById(id);
         if ( optionalOrder.isPresent() ) {
             return new ResponseEntity<>(userRepo.findById(id), OK);
@@ -57,7 +64,7 @@ public class UserController {
     }
 
     @GetMapping("/delete/{id}")
-    public void deleteOrder(@PathVariable("id") long id) {
+    public void deleteOrder(@PathVariable("id") int id) {
         try {
             userRepo.deleteById(id);
         } catch (EmptyResultDataAccessException e) {}
