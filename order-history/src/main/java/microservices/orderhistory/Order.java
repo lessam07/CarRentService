@@ -1,4 +1,4 @@
-package microservies.orderdetails;
+package microservices.orderhistory;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Data;
@@ -64,5 +64,13 @@ public class Order {
 
     public int getId() {
         return id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getCarType() {
+        return carType;
     }
 }

@@ -12,12 +12,14 @@ public class OrderHistory {
     public OrderHistory() {
     }
 
-    public OrderHistory(String fullname, Date created_at) {
+    public OrderHistory(String fullname, Date createdAt, String carType) {
         this.fullname = fullname;
         this.createdAt = createdAt;
+        this.carType = carType;
     }
 
     private String fullname;
     private Date createdAt;
+    private String carType;
 
 }
