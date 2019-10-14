@@ -1,22 +1,14 @@
 package microservices.paymentdetails;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import lombok.Data;
-import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.jdbc.core.JdbcTemplate;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import static javax.persistence.GenerationType.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import static javax.persistence.GenerationType.AUTO;
 
 @Data
 @Entity
@@ -27,15 +19,14 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = AUTO)
     private int id;
-    private String cc_name;
-    private String cc_validDate;
-    private String cc_code;
+    private String ccName;
+    private String ccValidDate;
+    private String ccCode;
 
-    public Payment(int id, String cc_name, String cc_validDate, String cc_code) {
-        this.id = id;
-        this.cc_name = cc_name;
-        this.cc_validDate = cc_validDate;
-        this.cc_code = cc_code;
+    public Payment(String ccName, String ccValidDate, String ccCode) {
+        this.ccName = ccName;
+        this.ccValidDate = ccValidDate;
+        this.ccCode = ccCode;
     }
 
     public Payment() {
@@ -50,3 +41,4 @@ public class Payment {
     }
 
 }
+
