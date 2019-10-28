@@ -1,7 +1,10 @@
 package microservies.orderdetails;
 import javax.validation.Valid;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +18,22 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-
+@EnableHystrix
 @RequestMapping("/")
 public class OrderController {
 
     @Autowired
     private InfoRepository infoRepo;
     @GetMapping("/bookings")
-    public Iterable<Order> getAllBookings() {
-
+    @HystrixCommand(fallbackMethod = "fallback_allBookings", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
+    })
+    public Iterable<Order> getAllBookings() throws InterruptedException {
+        Thread.sleep(3000);
         return infoRepo.findAll();
+    }
+    private String fallback_allBookings() throws InterruptedException {
+        return "Request fails. It takes long time to response";
     }
     @GetMapping("/bookings/{id}")
     public Optional<Order> getOrderbyID(@PathVariable("id") int id) {
