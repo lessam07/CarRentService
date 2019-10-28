@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: microservices.orderhistory.OrderHistoryApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.455 s - in microservices.orderhistory.OrderHistoryApplicationTests
