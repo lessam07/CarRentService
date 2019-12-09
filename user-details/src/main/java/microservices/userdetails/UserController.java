@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.*;
 @Slf4j
 @RestController
 
-@RequestMapping("/")
+@RequestMapping("/users")
 
 public class UserController {
     private UserRepository userRepo;
@@ -25,13 +25,13 @@ public class UserController {
     public UserController(UserRepository userRepo) {
         this.userRepo = userRepo;
     }
-    @GetMapping("/user/{userID}")
+    @GetMapping("/{userID}")
     public Optional<User> getAllUsers(@PathVariable("userID") int id) {
 
         return userRepo.findById(id);
     }
 
-    @GetMapping("/users/{username}")
+    @GetMapping("/{username}")
     public User getByUsername(@PathVariable("username") String username) {
 
         return userRepo.findByUsername(username);
