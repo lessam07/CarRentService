@@ -1,20 +1,75 @@
-package car.car1.data;
+package carrent.microservices.data;
 
-import car.car1.Order;
-import car.car1.RegistrationForm;
+import carrent.microservices.*;
+import carrent.microservices.Information;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import car.car1.Information;
-import car.car1.User;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class car1Client {
+    public static HttpHeaders httpHeaders;
+    String token;
+    public User getByUsername(String username) {
+        try {
+            RestTemplate rest = new RestTemplate();
+//            Map<String, String> urlVariables = new HashMap<>();
+//            urlVariables.put("username", username);
+//            HttpHeaders headers = new HttpHeaders();
+//            HttpServletRequest httpServletRequest;
+//            try {
+//                token = Files.readAllBytes(Paths.get("/Users/lessam07/Downloads/microservices 2/src/main/java/carrent/microservices/token/token.txt")).toString();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            headers.add("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJz" +
+//                    "dWIiOiJ3IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE1Nz" +
+//                    "QwNzc2NjUsImV4cCI6MTU3NDE2NDA2NX0.jv9W-JSzN5rEhnpJ41Tw5MDxRishFo" +
+//                    "ZE3BHVYlo_GYzk0exeAtUaGSE-5pxzW3_bPPEp35aKsCBvRRtrRnjyyA");
+//            httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+//            String apiCredentials = "rest-client:p@ssword";
+//            String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
+//            httpHeaders.add("Authorization", "Basic " + base64Credentials);
+            System.out.println("assel httpheaders");
+            HttpEntity<String> entity = new HttpEntity<>("Authorization", httpHeaders);
 
+//            return rest.postForObject("http://localhost:8762/teachers/user/{username}" + username, entity, EditTimetable.class);
+
+//            return rest.exchange("http://localhost:8762/teachers/user/" + username, HttpMethod.POST, entity, new ParameterizedTypeReference<EditTimetable>());
+//            return rest.getForObject("http://localhost:8762/teachers/user/{username}",
+//                    EditTimetable.class, username);
+
+            User user = new User("lessam", "225736", "Assel","8606","ADMIN");
+//            EditTimetable editTimetable = new EditTimetable();
+//            editTimetable.setName(teacher.getName());
+//            editTimetable.setPassword(teacher.getPassword());
+//            editTimetable.setUsername(teacher.getUsername());
+//            editTimetable.setRole(teacher.getRole());
+//            editTimetable.setROLE_PREFIX(teacher.getROLE_PREFIX());
+//            editTimetable.setId(teacher.getId());
+
+            System.out.println("assel"+user);
+//            System.out.println(editTimetable1.getPassword());
+            return user;
+
+        } catch (Exception e) {
+            System.err.println("Exception in TacoCloudClient: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     //
     // GET examples
@@ -67,6 +122,7 @@ public class car1Client {
         try {
             RestTemplate rest = new RestTemplate();
 
+
             return rest.exchange("http://localhost:8081/bookings",
                     HttpMethod.GET, null, new ParameterizedTypeReference<List<Information>>() {})
                     .getBody();
@@ -77,6 +133,34 @@ public class car1Client {
         return null;
     }
 
+    public List<OrderHistory> getAllHistory() {
+        try {
+            RestTemplate rest = new RestTemplate();
+
+            return rest.exchange("http://localhost:8082/api/history/3",
+                    HttpMethod.GET, null, new ParameterizedTypeReference<List<OrderHistory>>() {})
+                    .getBody();
+        } catch (Exception e) {
+            System.err.println("Exception in TacoCloudClient: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+//    public List<Information> getAllBookings() {
+//        try {
+//            RestTemplate rest = new RestTemplate();
+//
+//            return rest.exchange("http://localhost:8081/bookings",
+//                    HttpMethod.GET, null, new ParameterizedTypeReference<List<Information>>() {})
+//                    .getBody();
+//        } catch (Exception e) {
+//            System.err.println("Exception in TacoCloudClient: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
 
     public Information saveBooking(Information information) {
@@ -90,6 +174,7 @@ public class car1Client {
         }
         return null;
     }
+
 
     public Information savePayment(Order order) {
         try {
@@ -135,7 +220,7 @@ public class car1Client {
             RestTemplate rest = new RestTemplate();
             Map<String, String> urlVariables = new HashMap<>();
             urlVariables.put("username", username);
-            return rest.getForObject("http://localhost:8080/user/{username}",
+            return rest.getForObject("http://localhost:8084/user/{username}",
                     User.class, urlVariables);
         } catch (Exception e) {
             System.err.println("Exception in TacoCloudClient: " + e.getMessage());
@@ -149,7 +234,7 @@ public class car1Client {
             RestTemplate rest = new RestTemplate();
             Map<String, Integer> urlVariables = new HashMap<>();
             urlVariables.put("id", id);
-            return rest.getForObject("http://localhost:8080/delete/{id}",
+            return rest.getForObject("http://localhost:8081/delete/{id}",
                     Information.class, urlVariables);
         } catch (Exception e) {
             System.err.println("Exception in TacoCloudClient: " + e.getMessage());
@@ -162,7 +247,7 @@ public class car1Client {
             RestTemplate rest = new RestTemplate();
             Map<String, Integer> urlVariables = new HashMap<>();
             urlVariables.put("id", id);
-            return rest.getForObject("http://localhost:8080/edit/{id}",
+            return rest.getForObject("http://localhost:8081/bookings/{id}",
                     Information.class, urlVariables);
         } catch (Exception e) {
             System.err.println("Exception in TacoCloudClient: " + e.getMessage());
