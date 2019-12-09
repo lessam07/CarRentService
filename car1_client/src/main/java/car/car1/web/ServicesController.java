@@ -1,4 +1,4 @@
-package car.car1.web;
+package carrent.microservices.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 

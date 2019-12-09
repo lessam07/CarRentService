@@ -1,4 +1,4 @@
-package car.car1.web;
+package carrent.microservices.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -10,9 +10,9 @@ public class WebConfig implements WebMvcConfigurer {
     // tag::customLoginViewController[]
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("home");
-        registry.addViewController("/abc").setViewName("home");
-        registry.addViewController("/login");
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/Authorization");
 }
     // end::customLoginViewController[]
 
