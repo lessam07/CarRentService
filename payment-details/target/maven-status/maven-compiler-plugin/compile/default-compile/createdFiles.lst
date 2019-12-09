@@ -1,0 +1,4 @@
+microservices/paymentdetails/Payment.class
+microservices/paymentdetails/PaymentRepository.class
+microservices/paymentdetails/PaymentDetailsApplication.class
+microservices/paymentdetails/PaymentController.class
