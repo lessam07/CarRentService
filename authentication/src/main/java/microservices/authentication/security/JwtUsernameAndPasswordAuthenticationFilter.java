@@ -10,7 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.eureka.common.security.JwtConfig;
+import com.fasterxml.jackson.core.JsonParser;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -39,6 +40,29 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         // In our case, we use "/auth". So, we need to override the defaults.
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher(jwtConfig.getUri(), "POST"));
     }
+
+//    @Override
+//    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+//            throws AuthenticationException {
+//
+//        try {
+//
+//            // 1. Get credentials from request
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            objectMapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
+//            System.out.println("assel" + request.getInputStream());
+//            UserCredentials creds = objectMapper.readValue(request.getInputStream(), UserCredentials.class);
+//            // 2. Create auth object (contains credentials) which will be used by auth manager
+//            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+//                    creds.getUsername(), creds.getPassword(), Collections.emptyList());
+//
+//            // 3. Authentication manager authenticate the user, and use UserDetialsServiceImpl::loadUserByUsername() method to load the user.
+//            return authManager.authenticate(authToken);
+//
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -81,6 +105,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
         // Add token to header
         response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
+        String apiCredentials = "rest-client:p@ssword";
+//        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
     }
 
     // A (temporary) class just to represent the user credentials

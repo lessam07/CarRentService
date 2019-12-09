@@ -17,7 +17,6 @@ package microservices.authentication.security;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.eureka.common.security.JwtConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +28,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 
 @EnableWebSecurity 	// Enable security config. This annotation denotes config for spring security.
@@ -58,7 +59,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
                 .authorizeRequests()
                 // allow all POST requests
-                .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
                 // any other requests must be authenticated
                 .anyRequest().authenticated();
     }
@@ -76,8 +77,14 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
         return new JwtConfig();
     }
 
+//    @Bean
+//    public BCryptPasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
