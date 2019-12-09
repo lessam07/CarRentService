@@ -1,0 +1,60 @@
+version: '2.2'
+services:
+  discovery-server:
+    container_name: discovery-server
+    build:
+      context: .
+    image: discovery-server:latest
+    ports:
+      - 8761:8761
+
+
+  auth-service:
+    container_name: auth-service
+    build:
+      context: /Users/lessam07/Downloads/authentication
+    image: auth-service:latest
+    ports:
+        - 9100:9100
+
+  order-details:
+    container_name: order-details
+    build:
+      context: /Users/lessam07/Desktop/CarRentService-master/car-details
+    image: order-details:latest
+    ports:
+      - 8081:8081
+
+  order-history:
+    container_name: order-history
+    build:
+      context: ../order-history
+    image: order-history:latest
+    ports:
+      - 8082:8082
+
+  payment-details:
+    container_name: payment-details
+    build:
+      context: ../payment-details
+    image: payment-details:latest
+    ports:
+      - 8083:8083
+
+  user-details:
+    container_name: user-details
+    build:
+      context: ../user-details
+    image: user-details:latest
+    ports:
+      - 8084:8084
+
+  zuul-service:
+    container_name: zuul-service
+    build:
+      context: /Users/lessam07/Downloads/zuul-server
+    image: zuul-service:latest
+    ports:
+      - 8762:8762
+
+
