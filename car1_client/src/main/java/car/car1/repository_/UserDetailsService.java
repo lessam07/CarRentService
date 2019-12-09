@@ -1,4 +1,4 @@
-package car.car1.repository_;
+package carrent.microservices.repository_;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

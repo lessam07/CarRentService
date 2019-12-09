@@ -1,6 +1,7 @@
-package car.car1.repository_;
+package carrent.microservices.repository_;
+import carrent.microservices.User;
 import org.springframework.data.repository.CrudRepository;
-import car.car1.User;
+
 public interface UserRepository extends CrudRepository<User, Long> {
     User findByUsername(String username);
 }
