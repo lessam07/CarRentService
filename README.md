@@ -29,4 +29,15 @@ User - details:
 Get list of users - GET 
 Get user by user_id - GET
 
-Screen Shot 2019-10-14 at 12.26.24 PM
+
+Zuul-Service
+
+ Rearranges all requests to micro services
+ Sends request to auth-service
+
+Authentication service:
+ 
+ Checks users validation 
+ Creates token for users 
+
+
