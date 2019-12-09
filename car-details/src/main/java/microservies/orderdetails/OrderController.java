@@ -25,16 +25,15 @@ public class OrderController {
     @Autowired
     private InfoRepository infoRepo;
     @GetMapping("/bookings")
-    @HystrixCommand(fallbackMethod = "fallback_allBookings", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
-    })
+//    @HystrixCommand(fallbackMethod = "fallback_allBookings", commandProperties = {
+////            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
+////    })
     public Iterable<Order> getAllBookings() throws InterruptedException {
-        Thread.sleep(3000);
         return infoRepo.findAll();
     }
-    private String fallback_allBookings() throws InterruptedException {
-        return "Request fails. It takes long time to response";
-    }
+//    private String fallback_allBookings() throws InterruptedException {
+//        return "Request fails. It takes long time to response";
+//    }
     @GetMapping("/bookings/{id}")
     public Optional<Order> getOrderbyID(@PathVariable("id") int id) {
 
