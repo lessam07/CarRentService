@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/history")
+//@RequestMapping("/api/history")
 public class OrderHistoryApi {
     @Autowired
     private RestTemplate restTemplate;
@@ -18,7 +18,7 @@ public class OrderHistoryApi {
     @Autowired
     OrderService orderService;
 
-    @GetMapping("/{userId}")
+    @GetMapping("/api/history/{userId}")
     public List<OrderHistory> getAllHistory(
             @PathVariable int userId) {
         return orderService.getAllBooks(userId);

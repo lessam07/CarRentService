@@ -32,12 +32,12 @@ public class OrderService {
     public List<OrderHistory> getAllBooks(
             @PathVariable int userId) {
 
-        String apiCredentials = "rest-client:p@ssword";
-        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Basic " + base64Credentials);
-        HttpEntity<String> entity = new HttpEntity<>(headers);
+//        String apiCredentials = "rest-client:p@ssword";
+//        String base64Credentials = new String(Base64.encodeBase64(apiCredentials.getBytes()));
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Authorization", "Basic " + base64Credentials);
+//        HttpEntity<String> entity = new HttpEntity<>(headers);
 
         // get all order by userId
         Order orders = restTemplate.getForObject(
@@ -49,7 +49,7 @@ public class OrderService {
         List<OrderHistory> userHistoryList = new ArrayList<>();
 
         User userInfo = restTemplate2.getForObject(
-                "http://user-details/user/" + userId,
+                "http://user-details/users/" + userId,
                 User.class);
         System.out.println(userInfo.getFullname());
 
